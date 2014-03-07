@@ -13,13 +13,13 @@ const (
 )
 
 type Post struct {
-	Url   url.URL
+	Url   *url.URL
 	Title string
-	Links []url.URL
+	Links []*url.URL
 }
 
 type PanInfo struct {
-	Url     url.URL
+	Url     *url.URL
 	Name    string
 	Title   string
 	Path    string
@@ -69,7 +69,7 @@ func httpGet(u string) (s string, err error) {
 	return
 }
 
-func GetPostLink(u string) (urls []url.URL) {
+func GetPostLink(u string) (urls []*url.URL) {
 	scheme := "http"
 	host := "tieba.baidu.com"
 
@@ -86,12 +86,12 @@ func GetPostLink(u string) (urls []url.URL) {
 		u, _ := url.Parse(link)
 		u.Scheme = scheme
 		u.Host = host
-		urls = append(urls, *u)
+		urls = append(urls, u)
 	}
 	return
 }
 
-func GetPost(u url.URL) (post Post) {
+func GetPost(u *url.URL) (post Post) {
 	post.Url = u
 
 	panReg := regexp.MustCompile("http://(pan|yun).baidu.com/[0-9a-zA-Z/?&=;]+")
@@ -106,8 +106,8 @@ func GetPost(u url.URL) (post Post) {
 	links := panReg.FindAllString(s, -1)
 	for _, link := range links {
 		link = replacerReg.ReplaceAllString(link, "&")
-		u, _ := url.Parse(link)
-		post.Links = append(post.Links, *u)
+		panUrl, _ := url.Parse(link)
+		post.Links = append(post.Links, panUrl)
 	}
 	return
 }
