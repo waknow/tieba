@@ -13,7 +13,7 @@ const (
 
 func main() {
 	// fmt.Println("geting post links...")
-	// postLinks := lib.GetPostLink(u)
+	// postLinks := lib.GetpostLink(u)
 	// fmt.Printf("got %d links.\n", len(postLinks))
 
 	// fmt.Println("getting posts...")

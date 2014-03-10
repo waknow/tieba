@@ -11,7 +11,7 @@ type Post struct {
 	Links []*url.URL
 }
 
-func GetPostLink(u string) (urls []*url.URL) {
+func GetpostLink(u string) (urls []*url.URL) {
 	scheme := "http"
 	host := "tieba.baidu.com"
 
@@ -21,7 +21,7 @@ func GetPostLink(u string) (urls []*url.URL) {
 		return
 	}
 
-	links := PostLink.FindAllString(s, -1)
+	links := postLink.FindAllString(s, -1)
 	for _, link := range links {
 		u, _ := url.Parse(link)
 		u.Scheme = scheme
@@ -39,10 +39,10 @@ func GetPost(u *url.URL) (post Post) {
 		fmt.Println(err)
 		return
 	}
-	post.Title = Group(TitleReg.FindStringSubmatch(s)).Get(1)
-	links := PostPanLinkReg.FindAllString(s, -1)
+	post.Title = Group(titleReg.FindStringSubmatch(s)).Get(1)
+	links := postPanLinkReg.FindAllString(s, -1)
 	for _, link := range links {
-		link = PostMarkerReplacer.ReplaceAllString(link, "&")
+		link = postMarkerReplacer.ReplaceAllString(link, "&")
 		panUrl, _ := url.Parse(link)
 		post.Links = append(post.Links, panUrl)
 	}

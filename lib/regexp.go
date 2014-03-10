@@ -4,33 +4,33 @@ import (
 	"regexp"
 )
 
-var TitleReg *regexp.Regexp
+var titleReg *regexp.Regexp
 
 //post
-var PostPanLinkReg *regexp.Regexp
-var PostMarkerReplacer *regexp.Regexp
-var PostLink *regexp.Regexp
+var postPanLinkReg *regexp.Regexp
+var postMarkerReplacer *regexp.Regexp
+var postLink *regexp.Regexp
 
 //pan
-var PanSourceNameReg *regexp.Regexp
-var PanUKReg *regexp.Regexp
-var PanIDReg *regexp.Regexp
-var PanPathReg *regexp.Regexp
-var PanSlashReplacer *regexp.Regexp
-var PanSlashUReplacer *regexp.Regexp
+var panSourceNameReg *regexp.Regexp
+var panUKReg *regexp.Regexp
+var panIDReg *regexp.Regexp
+var panPathReg *regexp.Regexp
+var panSlashReplacer *regexp.Regexp
+var panSlashUReplacer *regexp.Regexp
 
 func init() {
-	TitleReg = regexp.MustCompile("<title>(.*)</title>")
+	titleReg = regexp.MustCompile("<title>(.*)</title>")
 
-	PanSourceNameReg = regexp.MustCompile("<h2.*title=\"(.*?)\"")
-	PanUKReg = regexp.MustCompile("share_uk=\"(\\d+)\"")
-	PanIDReg = regexp.MustCompile("share_id=\"(\\d+)\"")
+	panSourceNameReg = regexp.MustCompile("<h2.*title=\"(.*?)\"")
+	panUKReg = regexp.MustCompile("share_uk=\"(\\d+)\"")
+	panIDReg = regexp.MustCompile("share_id=\"(\\d+)\"")
 	// raw string: \\/\\u6211\\u7684\\u97f3\\u4e50\\/\\u65e0\\u635f\\u97f3\\u4e50
-	PanPathReg = regexp.MustCompile(`\\"path\\":\\"(.*?)\\"`)
-	PanSlashReplacer = regexp.MustCompile(`\\\\/`)  //for \\/
-	PanSlashUReplacer = regexp.MustCompile(`\\\\u`) //for \\u
+	panPathReg = regexp.MustCompile(`\\"path\\":\\"(.*?)\\"`)
+	panSlashReplacer = regexp.MustCompile(`\\\\/`)  //for \\/
+	panSlashUReplacer = regexp.MustCompile(`\\\\u`) //for \\u
 
-	PostPanLinkReg = regexp.MustCompile("http://(pan|yun).baidu.com/[0-9a-zA-Z/?&=;]+")
-	PostMarkerReplacer = regexp.MustCompile("&amp;")
-	PostLink = regexp.MustCompile("/p/(\\d+)")
+	postPanLinkReg = regexp.MustCompile("http://(pan|yun).baidu.com/[0-9a-zA-Z/?&=;]+")
+	postMarkerReplacer = regexp.MustCompile("&amp;")
+	postLink = regexp.MustCompile("/p/(\\d+)")
 }

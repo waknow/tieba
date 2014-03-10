@@ -9,9 +9,9 @@ type PanInfo struct {
 	Url     *url.URL
 	Name    string
 	Title   string
-	Path    string
-	UK      string
-	ShareId string
+	path    string
+	uk      string
+	shareId string
 	Refer   Post
 }
 
@@ -32,23 +32,22 @@ func GetPanInfo(p Post) (infos []PanInfo) {
 			return
 		}
 
-		name := Group(PanSourceNameReg.FindStringSubmatch(s)).Get(1)
-		fmt.Println(name)
-		title := Group(TitleReg.FindStringSubmatch(s)).Get(1)
-		uk := Group(PanUKReg.FindStringSubmatch(s)).Get(1)
-		id := Group(PanIDReg.FindStringSubmatch(s)).Get(1)
+		name := Group(panSourceNameReg.FindStringSubmatch(s)).Get(1)
+		title := Group(titleReg.FindStringSubmatch(s)).Get(1)
+		uk := Group(panUKReg.FindStringSubmatch(s)).Get(1)
+		id := Group(panIDReg.FindStringSubmatch(s)).Get(1)
 
-		path := Group(PanPathReg.FindStringSubmatch(s)).Get(1)
-		path = PanSlashReplacer.ReplaceAllString(path, "/")
-		path = PanSlashUReplacer.ReplaceAllString(path, "\\u")
+		path := Group(panPathReg.FindStringSubmatch(s)).Get(1)
+		path = panSlashReplacer.ReplaceAllString(path, "/")
+		path = panSlashUReplacer.ReplaceAllString(path, "\\u")
 		path = PathToUnicode(path)
 		info := PanInfo{
 			Url:     link,
 			Name:    name,
 			Title:   title,
-			Path:    path,
-			UK:      uk,
-			ShareId: id,
+			path:    path,
+			uk:      uk,
+			shareId: id,
 			Refer:   p,
 		}
 		infos = append(infos, info)
