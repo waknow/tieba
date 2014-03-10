@@ -1,4 +1,4 @@
-package page
+package lib
 
 type Group []string
 

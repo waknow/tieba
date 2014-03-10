@@ -1,10 +1,8 @@
-package page
+package lib
 
 import (
 	"fmt"
 	"net/url"
-
-	"tieba/lib"
 )
 
 type Post struct {
@@ -17,13 +15,13 @@ func GetPostLink(u string) (urls []*url.URL) {
 	scheme := "http"
 	host := "tieba.baidu.com"
 
-	s, err := lib.HttpGet(u)
+	s, err := HttpGet(u)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	links := lib.PostLink.FindAllString(s, -1)
+	links := PostLink.FindAllString(s, -1)
 	for _, link := range links {
 		u, _ := url.Parse(link)
 		u.Scheme = scheme
@@ -36,15 +34,15 @@ func GetPostLink(u string) (urls []*url.URL) {
 func GetPost(u *url.URL) (post Post) {
 	post.Url = u
 
-	s, err := lib.HttpGet(u.String())
+	s, err := HttpGet(u.String())
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	post.Title = Group(lib.TitleReg.FindStringSubmatch(s)).Get(1)
-	links := lib.PostPanLinkReg.FindAllString(s, -1)
+	post.Title = Group(TitleReg.FindStringSubmatch(s)).Get(1)
+	links := PostPanLinkReg.FindAllString(s, -1)
 	for _, link := range links {
-		link = lib.PostMarkerReplacer.ReplaceAllString(link, "&")
+		link = PostMarkerReplacer.ReplaceAllString(link, "&")
 		panUrl, _ := url.Parse(link)
 		post.Links = append(post.Links, panUrl)
 	}
