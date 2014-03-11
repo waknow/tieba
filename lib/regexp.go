@@ -18,6 +18,8 @@ var panIDReg *regexp.Regexp
 var panPathReg *regexp.Regexp
 var panSlashReplacer *regexp.Regexp
 var panSlashUReplacer *regexp.Regexp
+var panHPJson *regexp.Regexp
+var panHPJsoneplacer *regexp.Regexp
 
 func init() {
 	titleReg = regexp.MustCompile("<title>(.*)</title>")
@@ -29,6 +31,8 @@ func init() {
 	panPathReg = regexp.MustCompile(`\\"path\\":\\"(.*?)\\"`)
 	panSlashReplacer = regexp.MustCompile(`\\\\/`)  //for \\/
 	panSlashUReplacer = regexp.MustCompile(`\\\\u`) //for \\u
+	panHPJson = regexp.MustCompile(`{\\"fs_id\\".*?}`)
+	panHPJsonReplacer = regexp.MustCompile(`\\"`)
 
 	postPanLinkReg = regexp.MustCompile("http://(pan|yun).baidu.com/[0-9a-zA-Z/?&=;]+")
 	postMarkerReplacer = regexp.MustCompile("&amp;")
